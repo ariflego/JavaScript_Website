@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #startBtn {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #startBtn:hover {
+            background-color: #555;
+        }
+
+        #gameDiv {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        #restartDiv {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #restartBtn {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #restartBtn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guessing Game</h1>
+    <button id="startBtn" onclick="startGame()">Start</button>
+
+    <div id="gameDiv" style="display: none;">
+        <p>Guess a number between 1 and 100</p>
+        <input type="number" id="guessInput">
+        <button id="guessBtn" onclick="guessNum()">Guess</button>
+        <p id="message"></p>
+        <p id="attempts"></p>
+    </div>
+
+    <div id="restartDiv" style="display: none;">
+        <button id="restartBtn" onclick="restartGame()">Restart</button>
+    </div>
+
+    <script>
+        let num;
+        let guessCount;
+
+        function startGame() {
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('restartDiv').style.display = 'none';
+            document.getElementById('gameDiv').style.display = 'block';
+            
+            num = Math.floor(Math.random() * 100) + 1;
+            guessCount = 0;
+        }
+
+        function guessNum() {
+            const guessInput = parseInt(document.getElementById('guessInput').value);
+            const message = document.getElementById('message');
+            
+            if (isNaN(guessInput)) {
+                message.textContent = 'Please enter a valid number!';
+                return;
+            }
+
+            guessCount++;
+
+            if (guessInput === num) {
+                message.textContent = 'You guessed it right!';
+                document.getElementById('attempts').textContent = `Number of attempts: ${guessCount}`;
+                document.getElementById('restartDiv').style.display = 'block';
+            } else if (guessInput < num) {
+                message.textContent = 'Too low!';
+            } else if (guessInput > num) {
+                message.textContent = 'Too high!';
+            }
+        }
+
+        function restartGame() {
+            document.getElementById('gameDiv').style.display = 'none';
+            document.getElementById('restartDiv').style.display = 'none';
+            document.getElementById('startBtn').style.display = 'block';
+            document.getElementById('guessInput').value = '';
+            document.getElementById('message').textContent = '';
+            document.getElementById('attempts').textContent = '';
+            
+            num = undefined; // Clear the target number
+            guessCount = 0; // Reset guess count
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter Program Website</title>
+    <style>
+        body {
+            background-color: rgb(195, 209, 246);
+            font-family: Helvetica, Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        #countLabel {
+            display: block;
+            margin: auto;
+            background-color: rgb(23, 40, 90);
+            color: white;
+            font-size: 10em;
+            border-radius: 20px;
+            margin-top: 125px;
+        }
+
+        .buttons {
+            width: 200px;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            color: white;
+            background-color: rgb(130, 160, 243);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.45s ease;
+            margin-top: 100px;
+        }
+
+        .buttons:hover {
+            background-color: rgb(81, 109, 189);
+        }
+    </style>
+</head>
+<body>
+    <h1>Counter Program</h1>
+    <label id="countLabel">0</label><br>
+    <div id="btnContainer">
+        <button id="decreaseBtn" class="buttons">Decrease</button>
+        <button id="resetBtn" class="buttons">Reset</button>
+        <button id="increaseBtn" class="buttons">Increase</button>
+    </div>
+
+    <script>
+        const decreaseBtn = document.getElementById("decreaseBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const increaseBtn = document.getElementById("increaseBtn");
+        const countLabel = document.getElementById("countLabel");
+        let count = 0;
+
+        increaseBtn.onclick = function(){
+            count++;
+            countLabel.textContent = count;
+        }
+
+        decreaseBtn.onclick = function(){
+            count--;
+            countLabel.textContent = count;
+        }
+
+        resetBtn.onclick = function(){
+            count = 0;
+            countLabel.textContent = count;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            background-image: linear-gradient(rgb(151, 99, 188), rgb(63, 117, 255));
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+        }
+
+        #clock-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        #clock {
+            font-family: monospace;
+            font-size: 6.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(5px);
+            background-color: hsla(0, 0%, 100%, 0.1);
+            width: 100%;
+        }
+
+        #message-container {
+            background-color: hsla(0, 0%, 100%, 0.1);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            font-size: 2rem;
+            max-width: 750px;
+            height: 50vh;
+            margin: auto;
+            margin-top: 10vh;
+            border-radius: 50px;
+        }
+
+        #timeMessage {
+            font-size: 2.5rem;
+            line-height: 10px;
+            position: relative;
+            top: 42px;
+        }
+
+        #timeEmoji {
+            font-size: 10rem;
+            margin: auto;
+            text-align: center;
+
+        }
+
+        #inspQuotes {
+            font-size: 2rem;
+            margin: auto;
+            text-align: center;
+            position: relative;
+            top: 20px;
+
+        }
+    </style>
+</head>
+<body>
+
+    <div id="clock-container">
+        <div id="clock">00:00:00</div>
+    </div>
+
+    <div id="message-container">
+        <p id="timeMessage"></p>
+        <p id="timeEmoji"></p>
+        <p id="inspQuotes"></p>
+    </div>
+    
+    <script>
+        function updateClock(){
+            const now = new Date();
+            let hours = now.getHours();
+            const meridiem = hours >= 12 ? "PM" : "AM";
+            hours = (hours % 12 || 12).toString().padStart(2, "0");
+            const minutes = now.getMinutes().toString().padStart(2, "0");
+            const seconds = now.getSeconds().toString().padStart(2, "0");
+            const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
+            document.getElementById("clock").textContent = timeString
+        }
+
+        function timeMessage(){
+            const now = new Date();
+            const hours = now.getHours();
+            let timeMessage = document.getElementById("timeMessage");
+            let timeEmoji = document.getElementById("timeEmoji");
+            let inspQuotes = document.getElementById("inspQuotes");
+
+            if(hours == 6 || hours == 7){
+                timeMessage.textContent = "Rise and shine!";
+                timeEmoji.textContent = "🌄";
+                inspQuotes.textContent = "Today will always be another day!"
+            }
+            else if(hours > 7 && hours <= 12){
+                timeMessage.textContent = "Prepare to go to class!";
+                timeEmoji.textContent = "🏫";
+                inspQuotes.textContent = "Learning is priority!"
+            }
+            else if(hours == 13){
+                timeMessage.textContent = "Take a break!";
+                timeEmoji.textContent = "🍪";
+                inspQuotes.textContent = "Always keep your mind fresh the entire day!"
+            }
+            else if(hours > 13 && hours < 19){
+                timeMessage.textContent = "Keep on going!";
+                timeEmoji.textContent = "💪";
+                inspQuotes.textContent = "Never give up on your dreams!"
+            }
+            else if(hours >= 19 && hours < 22){
+                timeMessage.textContent = "Relax time! You did well today.";
+                timeEmoji.textContent = "🕹️";
+                inspQuotes.textContent = "Calm down your mind after a long day of work."
+            }
+            else {
+                timeMessage.textContent = "Sleep time! Go to sleep...";
+                timeEmoji.textContent = "💤";
+                inspQuotes.textContent = "Sleeping is the best way to gain energy for tommorow."
+            }
+        }
+
+        updateClock();
+        timeMessage();
+
+        setInterval(updateClock, 1000);
+        setInterval(timeMessage, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            background-color: #e6e6e6;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        #converter {
+            background-color: white;
+            margin: auto;
+            margin-top: 50px;
+            padding: 25px;
+            max-width: 600px;
+            border-radius: 30px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        #textBox {
+            margin-bottom: 40px;
+            font-size: 1.5em;
+            border: 3px solid;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        #fromDiv {
+            width: 40%;
+            background-color: rgb(146, 200, 218);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        #fromDiv p {
+            font-size: 1.25em;
+            font-weight: bold;
+            background-color:  rgb(173, 216, 230);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        #toDiv {
+            width: 40%;
+            background-color: rgb(146, 200, 218);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        #toDiv p {
+            font-size: 1.25em;
+            font-weight: bold;
+            background-color:  rgb(173, 216, 230);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .radios {
+            background-color: rgb(173, 216, 230);
+            padding: 5px;
+            text-align: left;
+            border-radius: 10px;
+        }
+
+        .convertDiv {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #convertBtn {
+            margin-top: 40px;
+            font-size: 1.5em;
+            padding: 5px 50px;
+            border: 3px solid;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        #output {
+            background-color: white;
+            margin: auto;
+            margin-top: 50px;
+            padding: 25px;
+            max-width: 600px;
+            border-radius: 30px;
+            font-size: 1.5em;
+            text-align: left;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="converter">
+        <h1>Temperature Converter</h1>
+        <input type="number" id="textBox" value="0" required>
+
+        <div class="convertDiv">
+            <div id="fromDiv">
+                <p>From</p>
+                <div class="radios">
+                    <input type="radio" id="fromFahrenheit" name="fromUnit" value="fahrenheit" required>
+                    <label for="fromFahrenheit">Fahrenheit (°F)</label> <br>
+                    <input type="radio" id="fromCelsius" name="fromUnit" value="celsius" required>
+                    <label for="fromCelsius">Celsius (°C)</label> <br>
+                    <input type="radio" id="fromKelvin" name="fromUnit" value="kelvin" required>
+                    <label for="fromKelvin">Kelvin (°K)</label> <br>
+                </div> <br>
+            </div>
+    
+            <div id="toDiv">
+                <p>To</p>
+                <div class="radios">
+                    <input type="radio" id="toFahrenheit" name="toUnit" value="fahrenheit" required>
+                    <label for="toFahrenheit">Fahrenheit (°F)</label> <br>
+                    <input type="radio" id="toCelsius" name="toUnit" value="celsius" required>
+                    <label for="toCelsius">Celsius (°C)</label> <br>
+                    <input type="radio" id="toKelvin" name="toUnit" value="kelvin" required>
+                    <label for="toKelvin">Kelvin (°K)</label> <br>
+                </div> <br>
+            </div>
+        </div>
+
+        <button id="convertBtn">Convert!</button>
+    </div>
+
+    <p id="output">Converted Value:</p>
+
+    <script>
+        const textBox = document.getElementById("textBox");
+        const fromFahrenheit = document.getElementById("fromFahrenheit");
+        const fromCelsius = document.getElementById("fromCelsius");
+        const fromKelvin = document.getElementById("fromKelvin");
+        const toFahrenheit = document.getElementById("toFahrenheit");
+        const toCelsius = document.getElementById("toCelsius");
+        const toKelvin = document.getElementById("toKelvin");
+        const convertBtn = document.getElementById("convertBtn");
+        const output = document.getElementById("output");
+
+        convertBtn.onclick = function(){
+            let numInput = Number(textBox.value);
+
+            let numOutput = "Invalid Conversion";
+
+            if (fromFahrenheit.checked && toFahrenheit.checked) {
+                numOutput = numInput;
+            }
+            else if (fromFahrenheit.checked && toCelsius.checked) {
+                numOutput = ((numInput - 32) * 5) / 9;
+            }
+            else if (fromFahrenheit.checked && toKelvin.checked) {
+                numOutput = ((numInput - 32) * 5) / 9 + 273.15;
+            }
+            else if (fromCelsius.checked && toCelsius.checked) {
+                numOutput = numInput;
+            }
+            else if (fromCelsius.checked && toFahrenheit.checked) {
+                numOutput = (numInput * 9) / 5 + 32;
+            }
+            else if (fromCelsius.checked && toKelvin.checked) {
+                numOutput = numInput + 273.15;
+            }
+            else if (fromKelvin.checked && toKelvin.checked) {
+                numOutput = numInput;
+            }
+            else if (fromKelvin.checked && toFahrenheit.checked) {
+                numOutput = ((numInput - 273.15) * 9) / 5 + 32;
+            }
+            else if (fromKelvin.checked && toCelsius.checked) {
+                numOutput = numInput - 273.15;
+            }
+
+            output.textContent = `Converted Value: ${numOutput}`;
+            console.log(`${numInput} = ${numOutput}`)
+        };
+
+    </script>
+</body>
+</html>
